@@ -2,6 +2,9 @@
 
 노마드코더 강의 flutter animations masterclass에서 학습한 내용입니다.
 
+# 사용 라이브러리
+플러터 내장 라이브러리를 제외하고 pub add한 라이브러리는
+flutter.dev가 퍼블리싱한 animations 패키지입니다. [링크](https://pub.dev/packages/animations)
 # 파일 설명
 
 ## data/
