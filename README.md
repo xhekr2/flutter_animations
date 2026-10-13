@@ -20,6 +20,11 @@ menu_model은 music_player_detail_screen에서 사용합니다.
 강의에선 단순히 Map으로 정의해 key를 통해 value에 접근했지만
 Map을 사용하면 값은 dynamic을 사용해야 하므로 타입 안정성의 문제 그리고
 개인적인 코드 스타일이 모델 객체를 정의해두고 사용하는 편이라서 따로 모델을 정의해서 사용했습니다.
+`Animation<Offset>`이 필요해서 어쩔 수 없이 initState에 menuModels를 선언했습니다.
+
+Fade Through 내용 추가로 위의 파일은 삭제하고 각각 별도로 music_player_detail_screen에서의
+MenuModel과 fade_through_screen에서의 MenuModel을 분리했습니다.
+또한 사용되지 않는 toJson()과 factory 생성자를 제거했습니다.
 
 
 ## screens/
@@ -72,5 +77,8 @@ animations 패키지에서 PageTransitionSwitcher와 SharedAxisTransition를 사
 처음에 애니메이션이 적용되지 않는 어려움이 있었는데 child가 바뀌지 않는다고 판단하고
 그대로 재사용해서 생기는 문제였습니다. music_player_screen에서와 마찬가지로
 Container에 key속성에 UniqueKey를 사용했습니다.
+
+### Fade Through
+
 
 강의 수강하며 추가 예정입니다~

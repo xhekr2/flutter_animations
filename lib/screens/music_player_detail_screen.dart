@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 
 import '../data/data_file.dart';
-import '../data/menu_model.dart';
+
+class _MenuModel {
+  final IconData iconData;
+  final String text;
+  final Animation<Offset> animation;
+
+  const _MenuModel({
+    required this.iconData,
+    required this.text,
+    required this.animation,
+  });
+}
 
 class const MusicPlayerDetailScreen({super.key, required final int index})
     extends StatefulWidget {
@@ -36,7 +47,7 @@ class _MusicPlayerDetailScreenState extends State<MusicPlayerDetailScreen>
 
   final ValueNotifier<double> _volume = ValueNotifier<double>(0.0);
 
-  late final List<MenuModel> _menuModel;
+  late final List<_MenuModel> _menuModel;
 
   @override
   void initState() {
@@ -122,17 +133,17 @@ class _MusicPlayerDetailScreenState extends State<MusicPlayerDetailScreen>
         );
 
     _menuModel = [
-      MenuModel(
+      _MenuModel(
         iconData: Icons.person,
         text: "Profile",
         animation: _profileSlide,
       ),
-      MenuModel(
+      _MenuModel(
         iconData: Icons.notifications,
         text: "Notifications",
         animation: _notificationsSlide,
       ),
-      MenuModel(
+      _MenuModel(
         iconData: Icons.settings,
         text: "Settings",
         animation: _settingsSlide,
@@ -172,7 +183,7 @@ class _MusicPlayerDetailScreenState extends State<MusicPlayerDetailScreen>
             child: Column(
               children: [
                 const SizedBox(height: 30),
-                for (final MenuModel menu in _menuModel) ...[
+                for (final _MenuModel menu in _menuModel) ...[
                   SlideTransition(
                     position: menu.animation,
                     child: Row(
