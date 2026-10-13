@@ -48,7 +48,14 @@ Animation을 사용해보았습니다
 
 ### music_player_screen
 PageView.builder, PageController를 사용했습니다.
-Backdrop.filter도 알아볼 수 있었습니다. 강의와 크게 다른 내용은 없습니다.
+배경에서 사용하던 Container의 색이 변하지 않았는데 Page가 바껴도 플러터는
+child가 바뀌지 않는다고 판단해 생기는 현상이였습니다. 배경이 되는 Container의 key 속성에
+(강의에선) ValueKey로 처음엔 현재 페이지의 인덱스를 사용했습니다.
+그런데 페이지를 빠르게 (예를 들면 1=>2=>1) 전환하다 보니 같은 key를 가진 위젯이
+화면에 동시에 존재하게 되어 오류가 발생했습니다. 강의에선 미처 다루지 못한 부분 같긴 한데
+key에 UniqueKey를 사용하면 전환하는 시간에 남아있는 위젯과 새로운 위젯의 key가 다를 수 있어
+오류를 해결할 수 있었습니다.
+추가적으로  Backdrop.filter도 알아볼 수 있었습니다.
 
 #### music_player_detail_screen
 여러 애니메이션 기법을 알아볼 수 있었습니다. CustomPainter을 사용해 사용자의 제스처를
@@ -59,5 +66,11 @@ Backdrop.filter도 알아볼 수 있었습니다. 강의와 크게 다른 내용
 animations 패키지에서 OpenContainer를 사용했습니다. 추가로 GridView와 ListView, ListTile을 알아보고
 OpenContainer를 사용했을 때 ListTile을 Material로 감싸주지 않아서
 Material widget not found와 같은 에러를 받아보았습니다.
+
+### shared_axis_screen
+animations 패키지에서 PageTransitionSwitcher와 SharedAxisTransition를 사용했습니다.
+처음에 애니메이션이 적용되지 않는 어려움이 있었는데 child가 바뀌지 않는다고 판단하고
+그대로 재사용해서 생기는 문제였습니다. music_player_screen에서와 마찬가지로
+Container에 key속성에 UniqueKey를 사용했습니다.
 
 강의 수강하며 추가 예정입니다~
