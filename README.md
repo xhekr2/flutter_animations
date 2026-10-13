@@ -3,82 +3,89 @@
 노마드코더 강의 flutter animations masterclass에서 학습한 내용입니다.
 
 # 사용 라이브러리
-플러터 내장 라이브러리를 제외하고 pub add한 라이브러리는
-flutter.dev가 퍼블리싱한 animations 패키지입니다. [링크](https://pub.dev/packages/animations)
+
+플러터 내장 라이브러리를 제외하고 pub add한 라이브러리는 flutter.dev가 퍼블리싱한 animations
+패키지입니다. [링크](https://pub.dev/packages/animations)
+
 # 파일 설명
 
 ## data/
+
 앱에서 사용되는 데이터 파일들입니다.
 
 ### data_file.dart
-Swiping card, Music Player, Container Transform screen에서 사용하는 enum 정의
-deviceWidth는 initState에서 MediaQuery.of(context).size로 size를 얻은 뒤, size.width 접근을 할 수 없어서
-Pixel5 API33 Tiramisu의 width를 하드코딩해두었습니다.
+
+Swiping card, Music Player, Container Transform screen에서 사용하는 enum 정의 deviceWidth는 initState에서
+MediaQuery.of (context).size로 size를 얻은 뒤, size.width 접근을 할 수 없어서 Pixel5 API33 Tiramisu의 width를
+하드코딩해두었습니다.
 
 ### menu_model.dart
-menu_model은 music_player_detail_screen에서 사용합니다.
-강의에선 단순히 Map으로 정의해 key를 통해 value에 접근했지만
-Map을 사용하면 값은 dynamic을 사용해야 하므로 타입 안정성의 문제 그리고
-개인적인 코드 스타일이 모델 객체를 정의해두고 사용하는 편이라서 따로 모델을 정의해서 사용했습니다.
+
+menu_model은 music_player_detail_screen에서 사용합니다. 강의에선 단순히 Map으로 정의해 key를 통해 value에 접근했지만 Map을 사용하면 값은
+dynamic을 사용해야 하므로 타입 안정성의 문제 그리고 개인적인 코드 스타일이 모델 객체를 정의해두고 사용하는 편이라서 따로 모델을 정의해서 사용했습니다.
 `Animation<Offset>`이 필요해서 어쩔 수 없이 initState에 menuModels를 선언했습니다.
 
-Fade Through 내용 추가로 위의 파일은 삭제하고 각각 별도로 music_player_detail_screen에서의
-MenuModel과 fade_through_screen에서의 MenuModel을 분리했습니다.
-또한 사용되지 않는 toJson()과 factory 생성자를 제거했습니다.
-
+Fade Through 내용 추가로 위의 파일은 삭제하고 각각 별도로 music_player_detail_screen에서의 MenuModel과
+fade_through_screen에서의 MenuModel을 분리했습니다. 또한 사용되지 않는 toJson ()과 factory 생성자를 제거했습니다.
 
 ## screens/
+
 표시되는 화면들입니다.
 
 ### implicit_animations_screen
+
 암시적 애니메이션입니다.
 
 ### explicit_animations_screen
-명시적 애니메이션입니다. 강의에선 단순히 forward, stop, reverse, repeat을 사용했지만
-명시적 애니메이션은 곧 애니메이션을 자유롭게 컨트롤하는 것이라고 생각해
 
-slide를 통해 직접 AnimationController에 접근 가능하게 해두었고
-forward, reverse, stop, repeat, repeat의 reverse 속성 변경의 기능을 가진
-ElevatedButton을 만들어두었습니다.
+명시적 애니메이션입니다. 강의에선 단순히 forward, stop, reverse, repeat을 사용했지만 명시적 애니메이션은 곧 애니메이션을 자유롭게 컨트롤하는 것이라고 생각해
+
+slide를 통해 직접 AnimationController에 접근 가능하게 해두었고 forward, reverse, stop, repeat, repeat의 reverse 속성
+변경의 기능을 가진 ElevatedButton을 만들어두었습니다.
 
 ### custom_painter_screen
-강의에선 AppleWatch입니다. CustomPainter를 사용해서 직접 화면에 그려보는 연습을 했고
-Animation을 사용해보았습니다
+
+강의에선 AppleWatch입니다. CustomPainter를 사용해서 직접 화면에 그려보는 연습을 했고 Animation을 사용해보았습니다
 
 ### swiping_card_screen
-카드 두 장을 이용해 마치 여러 장의 카드를 넘기는 듯한 착시 효과를 주는 방법을 알아보았습니다.
-강의에서는 asset에 image파일을 저장해두고 사용했지만
-개인적인 스타일 때문에 대신 data디렉토리의 data_file.dart에 정의된 ColorEnum을 정의해
-사용했습니다. Tween의 transform 메서드를 알아보았습니다.
+
+카드 두 장을 이용해 마치 여러 장의 카드를 넘기는 듯한 착시 효과를 주는 방법을 알아보았습니다. 강의에서는 asset에 image파일을 저장해두고 사용했지만 개인적인 스타일
+때문에 대신 data디렉토리의 data_file.dart에 정의된 ColorEnum을 정의해 사용했습니다. Tween의 transform 메서드를 알아보았습니다.
 
 ### music_player_screen
-PageView.builder, PageController를 사용했습니다.
-배경에서 사용하던 Container의 색이 변하지 않았는데 Page가 바껴도 플러터는
-child가 바뀌지 않는다고 판단해 생기는 현상이였습니다. 배경이 되는 Container의 key 속성에
-(강의에선) ValueKey로 처음엔 현재 페이지의 인덱스를 사용했습니다.
-그런데 페이지를 빠르게 (예를 들면 1=>2=>1) 전환하다 보니 같은 key를 가진 위젯이
-화면에 동시에 존재하게 되어 오류가 발생했습니다. 강의에선 미처 다루지 못한 부분 같긴 한데
-key에 UniqueKey를 사용하면 전환하는 시간에 남아있는 위젯과 새로운 위젯의 key가 다를 수 있어
-오류를 해결할 수 있었습니다.
-추가적으로  Backdrop.filter도 알아볼 수 있었습니다.
+
+PageView.builder, PageController를 사용했습니다. 배경에서 사용하던 Container의 색이 변하지 않았는데 Page가 바껴도 플러터는 child가 바뀌지
+않는다고 판단해 생기는 현상이였습니다. 배경이 되는 Container의 key 속성에 (강의에선) ValueKey로 처음엔 현재 페이지의 인덱스를 사용했습니다. 그런데 페이지를
+빠르게 (예를 들면 1=>2=>1) 전환하다 보니 같은 key를 가진 위젯이 화면에 동시에 존재하게 되어 오류가 발생했습니다. 강의에선 미처 다루지 못한 부분 같긴 한데 key에
+UniqueKey를 사용하면 전환하는 시간에 남아있는 위젯과 새로운 위젯의 key가 다를 수 있어 오류를 해결할 수 있었습니다. 추가적으로 Backdrop.filter도 알아볼 수
+있었습니다.
 
 #### music_player_detail_screen
-여러 애니메이션 기법을 알아볼 수 있었습니다. CustomPainter을 사용해 사용자의 제스처를
-읽어서 마치 볼륨 조절 바를 만들었고, Progress Bar를 만들었습니다. AnimatedIcon을 이용해
-움직이는 아이콘을 간단하게 만들어보기도 했습니다.
+
+여러 애니메이션 기법을 알아볼 수 있었습니다. CustomPainter을 사용해 사용자의 제스처를 읽어서 마치 볼륨 조절 바를 만들었고, Progress Bar를 만들었습니다.
+AnimatedIcon을 이용해 움직이는 아이콘을 간단하게 만들어보기도 했습니다.
 
 ### container_transform_screen
-animations 패키지에서 OpenContainer를 사용했습니다. 추가로 GridView와 ListView, ListTile을 알아보고
-OpenContainer를 사용했을 때 ListTile을 Material로 감싸주지 않아서
-Material widget not found와 같은 에러를 받아보았습니다.
+
+animations 패키지에서 OpenContainer를 사용했습니다. 추가로 GridView와 ListView, ListTile을 알아보고 OpenContainer를 사용했을 때
+ListTile을 Material로 감싸주지 않아서 Material widget not found와 같은 에러를 받아보았습니다.
 
 ### shared_axis_screen
-animations 패키지에서 PageTransitionSwitcher와 SharedAxisTransition를 사용했습니다.
-처음에 애니메이션이 적용되지 않는 어려움이 있었는데 child가 바뀌지 않는다고 판단하고
-그대로 재사용해서 생기는 문제였습니다. music_player_screen에서와 마찬가지로
-Container에 key속성에 UniqueKey를 사용했습니다.
+
+animations 패키지에서 PageTransitionSwitcher와 SharedAxisTransition를 사용했습니다. 처음에 애니메이션이 적용되지 않는 어려움이 있었는데
+child가 바뀌지 않는다고 판단하고 그대로 재사용해서 생기는 문제였습니다. music_player_screen에서와 마찬가지로 Container에 key속성에 UniqueKey를
+사용했습니다.
 
 ### Fade Through
 
+animations 패키지에서 PageTransitionSwitcher와 FadeThrough를 사용했습니다. 강의와는 조금 다르게 코드를 짰는데, 중복된 부분이 조금 보이길래
+MenuModel을 기존에 데이터 파일에서 분리해서 따로따로 사용하게끔 만들어서 이제 fade_through_screen만의 MenuModel을 정의해서 사용했습니다. 덕분에
+코드가 더 간결해지고 읽기 쉽게 된 것 같습니다 (개인적인 코드 작성 취향입니다)
 
-강의 수강하며 추가 예정입니다~
+Scaffold의 body속성에 `<Widget>[/*Widget*/][_index]`으로 사용하는 방법을 알아볼 수 있었습니다.
+
+# 마치며
+
+flutter.dev 또는 dart.dev가 퍼블리싱 하지 않은 다른 외부 패키지들은 사용하지 않는 것이 목적이기에 그 이외의 강의 내용은 담지 않았습니다.
+
+애니메이션을 적용하지 않았을 때와 했을 때를 쉽게 비교하기 위해 각 화면마다 토글 버튼을 만들어 비교할 수 있도록 만들 것입니다.
